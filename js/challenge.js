@@ -13,20 +13,22 @@ function increaseCount (cnt){
  }
 
  function newLike (list) {
-     let li = document.createElement('li')
+    let countNum = `${counter.innerText}` 
+    if(document.getElementById(`${countNum}`)){
+        const selectedLi = document.getElementById(`${countNum}`)
+        selectedLi.dataset.likeCount = ++selectedLi.dataset.likeCount
+        selectedLi.innerHTML = `${countNum} has been liked ${selectedLi.dataset.likeCount} time`
+
+        console.log(selectedLi.dataset.likeCount)
+    }else{
+    let li = document.createElement('li')
+     li.id = countNum
+     li.innerHTML = `${countNum} has been liked 1 time`
+     li.dataset.likeCount = 1
      list.appendChild(li)
-     let countNum = `${counter.innerText}`
-     let numOfLikes = document.querySelectorAll('li')
-     let arrayOfLikes = Array.from(numOfLikes)
-     let spanTry = document.getElementsByTagName('span')
-     let spanArray = Array.from(spanTry)
-     let filterSpan = spanArray.filter(i => {
-         return i.innerText == `${counter.innerText}`
-    })
-         console.log(counter.innerText)
-         console.log(arrayOfLikes)
-         console.log(countNum)
-     li.innerHTML = `${countNum} has been liked <span> ${filterSpan.length} </span> times`
+    
+    }
+    
  }
 
 let plus = document.getElementById('plus')
