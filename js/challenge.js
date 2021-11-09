@@ -1,8 +1,12 @@
-window.addEventListener('DOMContentLoaded', () => {
-    let counter = document.getElementById('counter')
-    setInterval(increaseCount, 1000, counter)
-    
+
+let counter = document.getElementById('counter')
+let pauseButton = document.getElementById('pause')
+pauseButton.addEventListener('click', () =>
+{
+    pauseCount(countStart)
 })
+
+let countStart = setInterval(increaseCount, 1000, counter)
 
 function increaseCount (cnt){
     cnt.innerText++
@@ -12,21 +16,37 @@ function increaseCount (cnt){
      cnt.innerText--
  }
 
+ function pauseCount (cntInt){
+    if(pauseButton.innerText === "pause"){
+
+    
+        clearInterval(cntInt)
+       
+    pauseButton.innerText = "restart"
+    }else{
+        increaseCount(counter)
+        pauseButton.innerText = "pause"
+        setInterval(increaseCount, 1000, counter)
+    }
+ }
+
  function newLike (list) {
-     let li = document.createElement('li')
+    let countNum = `${counter.innerText}` 
+    if(document.getElementById(`${countNum}`)){
+        const selectedLi = document.getElementById(`${countNum}`)
+        selectedLi.dataset.likeCount = ++selectedLi.dataset.likeCount
+        selectedLi.innerHTML = `${countNum} has been liked ${selectedLi.dataset.likeCount} time`
+
+        console.log(selectedLi.dataset.likeCount)
+    }else{
+    let li = document.createElement('li')
+     li.id = countNum
+     li.innerHTML = `${countNum} has been liked 1 time`
+     li.dataset.likeCount = 1
      list.appendChild(li)
-     let countNum = `${counter.innerText}`
-     let numOfLikes = document.querySelectorAll('li')
-     let arrayOfLikes = Array.from(numOfLikes)
-     let spanTry = document.getElementsByTagName('span')
-     let spanArray = Array.from(spanTry)
-     let filterSpan = spanArray.filter(i => {
-         return i.innerText == `${counter.innerText}`
-    })
-         console.log(counter.innerText)
-         console.log(arrayOfLikes)
-         console.log(countNum)
-     li.innerHTML = `${countNum} has been liked <span> ${filterSpan.length} </span> times`
+    
+    }
+    
  }
 
 let plus = document.getElementById('plus')
