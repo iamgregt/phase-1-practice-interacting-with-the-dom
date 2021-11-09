@@ -1,32 +1,32 @@
 
 let counter = document.getElementById('counter')
 let pauseButton = document.getElementById('pause')
+let commentForm = document.getElementById('comment-form')
 pauseButton.addEventListener('click', () =>
 {
-    pauseCount(countStart)
+    pauseCount()
 })
 
-let countStart = setInterval(increaseCount, 1000, counter)
+let countStart = setInterval(increaseCount, 1000)
 
-function increaseCount (cnt){
-    cnt.innerText++
+function increaseCount (){
+    counter.innerText++
 }
 
- function decreaseCount (cnt){
-     cnt.innerText--
+ function decreaseCount (){
+     counter.innerText--
  }
 
- function pauseCount (cntInt){
+ function pauseCount (){
     if(pauseButton.innerText === "pause"){
 
     
-        clearInterval(cntInt)
+        clearInterval(countStart)
        
     pauseButton.innerText = "restart"
     }else{
-        increaseCount(counter)
         pauseButton.innerText = "pause"
-        setInterval(increaseCount, 1000, counter)
+        countStart = setInterval(increaseCount, 1000, counter)
     }
  }
 
@@ -68,4 +68,21 @@ heart.addEventListener('click', e => {
     console.log(e)
     newLike(likes)
 
+})
+
+
+
+commentForm.addEventListener('submit', (e) =>{
+    
+    console.log(e)
+    e.preventDefault()
+    let comment = e.target[0].value
+   console.log(comment)
+   let h5 = document.createElement('h5')
+
+   let comments = document.querySelector('h3')
+   let newComment = comments.appendChild(h5)
+   newComment.innerText = comment
+   console.log(comments.innerText)
+   
 })
